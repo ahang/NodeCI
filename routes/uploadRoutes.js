@@ -5,7 +5,10 @@ const keys = require('../config/keys');
 
 const s3 = new AWS.S3({
   accessKeyId: keys.accessKeyId,
-  secretAccessKey: keys.secretAccessKey
+  secretAccessKey: keys.secretAccessKey,
+  endpoint: 's3-eu-central-1.amazonaws.com',
+  signatureVersion: 'v4',
+  region: 'eu-central-1'
 });
 
 module.exports = app => {
