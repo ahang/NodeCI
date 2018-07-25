@@ -7,6 +7,13 @@ class BlogShow extends Component {
     this.props.fetchBlog(this.props.match.params._id);
   }
 
+  renderImage() {
+    const awsString = 'https://s3.us-east-2.amazonaws.com/blog-bucket-2/';
+    if (this.props.blog.imageUrl) {
+      return <img src={awsString + this.props.blog.imageUrl} alt="an image" />;
+    }
+  }
+
   render() {
     if (!this.props.blog) {
       return '';
@@ -18,6 +25,7 @@ class BlogShow extends Component {
       <div>
         <h3>{title}</h3>
         <p>{content}</p>
+        {this.renderImage()}
       </div>
     );
   }
@@ -27,4 +35,7 @@ function mapStateToProps({ blogs }, ownProps) {
   return { blog: blogs[ownProps.match.params._id] };
 }
 
-export default connect(mapStateToProps, { fetchBlog })(BlogShow);
+export default connect(
+  mapStateToProps,
+  { fetchBlog }
+)(BlogShow);
